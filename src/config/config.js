@@ -4,8 +4,8 @@ dotEnv.config();
 module.exports = {
   APP: process.env.APP,
   PORT: process.env.PORT,
+  FRONTEND_URL: process.env.FRONTEND_URL,
 
-  DB_DIALECT: process.env.DB_DIALECT,
   DB_HOST: process.env.DB_HOST,
   DB_NAME: process.env.DB_NAME,
   DB_PASSWORD: process.env.DB_PASSWORD,
@@ -14,5 +14,11 @@ module.exports = {
 
   JWT_ENCRYPTION: process.env.JWT_ENCRYPTION,
   JWT_EXPIRATION: process.env.JWT_EXPIRATION,
-  SALT_ROUNDS: process.env.SALT_ROUNDS
+  JWT_RPASSWORD_EXPIRATION: process.env.JWT_RPASSWORD_EXPIRATION,
+  SALT_ROUNDS: process.env.SALT_ROUNDS,
+  COOKIE_SECURITY: process.env.COOKIE_SECURITY,
+  COOKIE_EXPIRATION: process.env.COOKIE_EXPIRATION,
+
+
+
 };

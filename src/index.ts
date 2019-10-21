@@ -1,8 +1,7 @@
 import app from './app';
-import * as config from './config/config.js';
 import { sequelize } from './config/db';
 
-const PORT = config.PORT;
+const PORT = 3000;
 
 (async () => {
   await sequelize.sync({ force: false }).then(() => {
@@ -10,10 +9,11 @@ const PORT = config.PORT;
   }).catch(() => {
     console.log('CONNECTION REFUSED');
   });
+
   app.listen(PORT, (err) => {
     if (err) {
       return console.log(err);
     }
-    console.log(`Server is listening on ${PORT}`);
+    console.log(`Server is listening on port ${PORT}`);
   });
 })();
