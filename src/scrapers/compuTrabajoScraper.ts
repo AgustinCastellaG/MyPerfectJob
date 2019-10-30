@@ -1,13 +1,12 @@
 import * as puppeteer from 'puppeteer';
 import { GenericScraper } from './genericScraper';
 const randomUseragent = require('random-useragent');
-import { filter } from 'bluebird';
-import jobModel from '../db/models/job.model';
+import Job from '../db/models/job.model';
 require('dotenv').config();
 
 export default class CompuTrabajoScraper implements GenericScraper {
   public async getData() {
-    const jobs: jobModel[] = [];
+    const jobs: Job[] = [];
     let globalUrls: string[] = [];
 
     const compuTrabajoUser = process.env.COMPUTRABAJOUSER;
@@ -62,7 +61,7 @@ export default class CompuTrabajoScraper implements GenericScraper {
     await page.click(buscarEmpleoButton);
 
     // get jobs urls
-    for (let j = 1; j < 2; j += 1) {
+    for (let j = 1; j < 11; j += 1) {
       await page.goto('https://www.computrabajo.com.uy/ofertas-de-trabajo/?p=' + j + '&q=informatica');
       await page.waitFor(5000);
       let localUrls: string[] = [];
@@ -81,13 +80,13 @@ export default class CompuTrabajoScraper implements GenericScraper {
 
     await page.waitFor(5000);
     // tslint:disable-next-line: prefer-template
-    for (let i = 0; i < 1; i += 1) {
+    for (let i = 0; i < globalUrls.length; i += 1) {
       await page.goto('https://www.computrabajo.com.uy' + globalUrls[i]);
 
       await page.waitFor(5000);
-      let job: jobModel;
+      let job: Job;
       job = await page.evaluate(() => {
-        const tempJob = {} as jobModel;
+        const tempJob = {} as Job;
 
         // titulo
         const headerBox = document.querySelector('.box_image');
@@ -123,6 +122,9 @@ export default class CompuTrabajoScraper implements GenericScraper {
             }
           }
         });
+        if (!tempJob.empresa) {
+          tempJob.empresa = 'Importante empresa del sector';
+        }
 
         // descripcion
         const descriptionUl = document.querySelector('.bWord');
@@ -139,7 +141,7 @@ export default class CompuTrabajoScraper implements GenericScraper {
             isReq = true;
           }
           if (item.tagName === 'LI' && isReq) {
-            reqString += ((item as HTMLElement).innerText + '\n');
+            reqString += (`${(item as HTMLElement).innerText}\n`);
           }
         }
         tempJob.requerimientos = reqString;

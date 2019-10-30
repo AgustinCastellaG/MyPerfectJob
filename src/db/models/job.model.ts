@@ -5,7 +5,7 @@ import { Column, DataType, Model, Table } from 'sequelize-typescript';
   paranoid: true,
   deletedAt:'deletionDate'
 })
-export default class Job extends Model<Job> {
+export class Job extends Model<Job> {
 
   @Column
   public titulo:string;
@@ -39,3 +39,5 @@ export default class Job extends Model<Job> {
   public scrapedFrom : string;
 
 }
+
+export default Job;

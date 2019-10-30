@@ -1,7 +1,7 @@
 const dotEnv = require('dotenv');
 dotEnv.config();
 
-module.exports = {
+const conf = {
   APP: process.env.APP,
   PORT: process.env.PORT,
   FRONTEND_URL: process.env.FRONTEND_URL,
@@ -18,7 +18,6 @@ module.exports = {
   SALT_ROUNDS: process.env.SALT_ROUNDS,
   COOKIE_SECURITY: process.env.COOKIE_SECURITY,
   COOKIE_EXPIRATION: process.env.COOKIE_EXPIRATION,
-
-
-
 };
+
+export default conf;

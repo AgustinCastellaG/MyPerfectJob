@@ -1,9 +1,20 @@
 import dataSaver from './helpers/dataSaver';
 import compuTrabajoScraper from './scrapers/compuTrabajoScraper';
 import { GenericScraper } from './scrapers/genericScraper';
+import Job from './db/models/job.model';
 
-(async () => {
-  let data;
+const scraper = (async () => {
+  // const job = {
+  //   empresa: 'December',
+  //   titulo: '',
+  //   contrato: '',
+  //   jornada: '',
+  //   salario:'',
+  //   descripcion: '',
+  //   scrapedFrom: ''
+  // } as Job;
+  // data.push(job);
+  let data: Job[];
   const sources: GenericScraper[] = [];
   sources.push(new compuTrabajoScraper);
   // tslint:disable-next-line: forin
@@ -12,3 +23,5 @@ import { GenericScraper } from './scrapers/genericScraper';
     await dataSaver.saveData(data);
   }
 })();
+
+export default scraper;
