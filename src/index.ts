@@ -4,7 +4,7 @@ import { sequelize } from './config/db';
 const PORT = 3000;
 
 (async () => {
-  await sequelize.sync({ force: false }).then(() => {
+  await sequelize.sync({ force: true }).then(() => {
     console.log('CONNECTION ESTABLISHED SUCCESSFULLY');
   }).catch(() => {
     console.log('CONNECTION REFUSED');
