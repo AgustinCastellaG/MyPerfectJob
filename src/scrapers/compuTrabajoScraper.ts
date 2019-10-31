@@ -78,12 +78,12 @@ export default class CompuTrabajoScraper implements GenericScraper {
     }
     console.log('urls: ' + globalUrls);
 
-    await page.waitFor(5000);
+    await page.waitFor(1000);
     // tslint:disable-next-line: prefer-template
     for (let i = 0; i < globalUrls.length; i += 1) {
       await page.goto('https://www.computrabajo.com.uy' + globalUrls[i]);
 
-      await page.waitFor(5000);
+      await page.waitFor(1000);
       let job: Job;
       job = await page.evaluate(() => {
         const tempJob = {} as Job;
@@ -129,7 +129,7 @@ export default class CompuTrabajoScraper implements GenericScraper {
         // descripcion
         const descriptionUl = document.querySelector('.bWord');
         const rawDescription = (descriptionUl.children[0].children[0] as HTMLElement).innerText;
-        tempJob.descripcion = rawDescription.replace('Descripción\n', '').replace(/[^a-zA-Z0-9-_–$%',.:;()áéíóúÁÉÍÓÚñÑ\n!¡ ]/gm, '');
+        tempJob.descripcion = rawDescription.replace('Descripción\n', '').replace(/[^a-zA-Z0-9-_–$%',.:;()áéíóúÁÉÍÓÚñÑ\n!¡/ ]/gm, '');
 
         // requerimientos
         const requerimientosCollection = descriptionUl.children[0].children;
@@ -141,8 +141,15 @@ export default class CompuTrabajoScraper implements GenericScraper {
             isReq = true;
           }
           if (item.tagName === 'LI' && isReq) {
-            reqString += (`${(item as HTMLElement).innerText}\n`);
+            const requerimiento = (item as HTMLElement).innerText;
+            if (requerimiento.includes('Años de experiencia')) {
+              tempJob.experiencia = requerimiento.replace(/[^0-9]/gm, '');
+            }
+            reqString += (`${requerimiento}\n`);
           }
+        }
+        if (!tempJob.experiencia) {
+          tempJob.experiencia = '0';
         }
         tempJob.requerimientos = reqString;
         tempJob.scrapedFrom = 'CompuTrabajo';

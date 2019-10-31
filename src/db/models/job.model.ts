@@ -38,6 +38,9 @@ export class Job extends Model<Job> {
   @Column
   public scrapedFrom : string;
 
+  @Column
+  public experiencia : string;
+
 }
 
 export default Job;

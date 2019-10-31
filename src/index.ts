@@ -11,7 +11,7 @@ const PORT = 3000;
     console.log('CONNECTION REFUSED');
   });
 
-  myPerfectJob;
+  // myPerfectJob;
   app.listen(PORT, (err) => {
     if (err) {
       return console.log(err);
