@@ -2,7 +2,7 @@ import app from './app';
 import { sequelize } from './config/db';
 import myPerfectJob from './myPerfectJob';
 
-const PORT = 3000;
+const PORT = 3300;
 
 (async () => {
   await sequelize.sync({ force: false }).then(() => {

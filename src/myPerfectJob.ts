@@ -1,7 +1,8 @@
 import dataSaver from './helpers/dataSaver';
 import compuTrabajoScraper from './scrapers/compuTrabajoScraper';
+import smartTalentScraper from './scrapers/smartTalentScraper';
 import { GenericScraper } from './scrapers/genericScraper';
-import Job from './db/models/job.model';
+import jobModel from './db/models/job.model';
 
 const scraper = (async () => {
   // const job = {
@@ -14,9 +15,9 @@ const scraper = (async () => {
   //   scrapedFrom: ''
   // } as Job;
   // data.push(job);
-  let data: Job[];
+  let data: jobModel[];
   const sources: GenericScraper[] = [];
-  sources.push(new compuTrabajoScraper);
+  sources.push(new smartTalentScraper);
   // tslint:disable-next-line: forin
   for (const key in sources) {
     data = await sources[key].getData();

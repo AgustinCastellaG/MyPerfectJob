@@ -162,10 +162,3 @@ export default class CompuTrabajoScraper implements GenericScraper {
     return jobs;
   }
 }
-
-// ul = document.querySelector('.box_r').children[1]
-// array = [...ul.children]
-
-// if (array[2].children[1].tagName === 'P') {
-//   console.log('esa')
-// }

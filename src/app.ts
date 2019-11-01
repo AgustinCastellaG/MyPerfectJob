@@ -11,7 +11,7 @@ import * as errorHandler from './helpers/errorHandler';
 class App {
   public express: express.Application;
   private corsOptions = {
-    origin: 'URL_FRONTEND',
+    origin: 'http://localhost:3000',
     credentials: true,
     allowedHeaders: [
       'Save-Data',
